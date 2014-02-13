@@ -1,0 +1,25 @@
+<!--
+This query looks for highways
+Choose your region and hit the Run button above!
+-->
+{{key=highway}}
+{{value=primary|secondary|tertiary|unclassified|residential}}
+<osm-script>
+  <union>
+    <query type="node">
+      <has-kv k="{{key}}" regv="{{value}}"/>
+      <bbox-query {{bbox}}/>
+    </query>
+    <query type="way">
+      <has-kv k="{{key}}" regv="{{value}}"/>
+      <bbox-query {{bbox}}/>
+    </query>
+    <query type="relation">
+      <has-kv k="{{key}}" regv="{{value}}"/>
+      <bbox-query {{bbox}}/>
+    </query>
+  </union>
+  <print mode="body"/>
+  <recurse type="down"/>
+  <print mode="skeleton"/>
+</osm-script>
