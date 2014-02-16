@@ -34,4 +34,11 @@ trunk|motorway|primary|secondary|tertiary|unclassified|residential|track|railway
 ```
 type:node
 ```
-3. Скопируйте дороги, вокруг которых будут строится буфера в отдельный слой JOSM
+3. Выледите рамкой линии, и скопируйте их в отдельный слой JOSM
+4. Сохраните новый слой как osm-scripts/landuse_by_bufers/roads.geojson
+5. python osm-scripts/landuse_by_bufers/main.py
+6. Откройте получившийся areas.osm в JOSM
+7. Удалите из него Relation. Упростите кварталы коммандой Shift+Y, а то кто-нибудь докопается. 
+8. Повесьте теги (не забывайте про фильтр type:node)
+9. Скачайте данные по городу в отдельный слой, и копируйте из roads.osm в новый слой квартальчики. 
+10. Включите подложку bing, и проверяйте, что у вас получилось
