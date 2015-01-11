@@ -55,7 +55,11 @@ def process():
 	conn.commit()
 
 	os.system('''
-	ogr2ogr -overwrite data PG:"dbname='gis' host='localhost' port='5432' user='user' password='user'"  "areas_singlegeom" -nlt MULTIPOLYGON -s_srs EPSG:3857 -t_srs EPSG:4326
+	mkdir temp
+	''')
+
+	os.system('''
+	ogr2ogr -overwrite temp PG:"dbname='gis' host='localhost' port='5432' user='user' password='user'"  "areas_singlegeom" -nlt MULTIPOLYGON -s_srs EPSG:3857 -t_srs EPSG:4326
 	''')
 
 	os.system('''
@@ -63,7 +67,11 @@ def process():
 	''')
 
 	os.system('''
-python ogr2osm/ogr2osm.py areas_singlegeom.shp
+python ogr2osm/ogr2osm.py temp/areas_singlegeom.shp
+	''')
+		
+	os.system('''
+	rm temp
 	''')
 
 if __name__ == '__main__':
