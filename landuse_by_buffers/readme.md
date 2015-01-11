@@ -33,7 +33,7 @@ CREATE EXTENSION postgis;
 1. Загрузите в JOSM какой-нибудь райцентр, где вы хотите нарисовать landuse=residential
 2. Выберите фильтром линии (улицы + границы города + природа(?)), вокруг которых будут строится буфера. Создайте два фильтра: 
 ```
-trunk|motorway|primary|secondary|tertiary|unclassified|residential|track|railway|natural|living_street|waterway|place
+trunk|motorway|primary|secondary|tertiary|unclassified|highway=residential|track|railway|natural|living_street|waterway|place
 ```
 ```
 type:node
@@ -52,7 +52,7 @@ type:node
 Если у вас нет базы PostGIS, то вы можете вместо шага 5 использовать QGIS. 
 
 1. Откройте GeoJSON
-2. Сохраните как ESRI Shapefile в проекции WGS84 (короче чтоб буфера считались в метрах, а не градусах)
+2. Сохраните как ESRI Shapefile в проекции WGS84 (чтобы буфера считались в метрах, а не градусах)
 3. постройте буфера
 4. постройте convex hull
 5. выполните вычитание слоя буферов из слоя convex hull
