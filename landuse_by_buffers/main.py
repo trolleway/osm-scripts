@@ -33,33 +33,29 @@ def process():
 	ogr2ogr -overwrite -f "PostgreSQL" PG:"host=localhost user=user dbname=gis password=user"  -nln roads roads.geojson -s_srs EPSG:4326 -t_srs EPSG:3857
 	''')
 
-	
-
-
 	sql='''
 	CREATE TABLE areas AS
-	SELECT 
-	1 AS id,	
-	ST_Difference(
-		ST_ConvexHull(ST_Collect(wkb_geometry)),
-		ST_Buffer(ST_Collect(wkb_geometry),10)
-		)
-		AS poly
-	
-	FROM roads;
+		SELECT 
+		1 AS id,	
+		ST_Difference(
+			ST_ConvexHull(ST_Collect(wkb_geometry)),
+			ST_Buffer(ST_Collect(wkb_geometry),10)
+			)
+			AS pol
+		FROM roads;
 
 	CREATE TABLE areas_singlegeom AS
-	SELECT
-	ST_GeometryN(poly,generate_series(1,ST_NumGeometries(poly))) AS geom,
-	'residential' AS landuse,
-	'highway buffers' AS source
-	FROM areas;
+		SELECT
+		ST_GeometryN(poly,generate_series(1,ST_NumGeometries(poly))) AS geom,
+		'residential' AS landuse,
+		'highway buffers' AS source
+		FROM areas;
 	'''
 	cur.execute(sql)
 	conn.commit()
 
 	os.system('''
-	ogr2ogr -overwrite data PG:"dbname='residential' host='localhost' port='5432' user='user' password='user'"  "areas_singlegeom" -nlt MULTIPOLYGON -s_srs EPSG:3857 -t_srs EPSG:4326
+	ogr2ogr -overwrite data PG:"dbname='gis' host='localhost' port='5432' user='user' password='user'"  "areas_singlegeom" -nlt MULTIPOLYGON -s_srs EPSG:3857 -t_srs EPSG:4326
 	''')
 
 	os.system('''
