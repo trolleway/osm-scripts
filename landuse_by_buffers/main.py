@@ -6,7 +6,7 @@ import psycopg2
 
 
 def process():
-	dbname='residential'
+	dbname='gis'
 	user='user'
 	host='localhost'
 	password='user'
@@ -30,7 +30,7 @@ def process():
 
 
 	os.system('''
-	ogr2ogr -overwrite -f "PostgreSQL" PG:"host=localhost user=user dbname=residential password=user"  -nln roads roads.geojson -s_srs EPSG:4326 -t_srs EPSG:3857
+	ogr2ogr -overwrite -f "PostgreSQL" PG:"host=localhost user=user dbname=gis password=user"  -nln roads roads.geojson -s_srs EPSG:4326 -t_srs EPSG:3857
 	''')
 
 	
