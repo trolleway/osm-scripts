@@ -41,7 +41,7 @@ def process():
 			ST_ConvexHull(ST_Collect(wkb_geometry)),
 			ST_Buffer(ST_Collect(wkb_geometry),10)
 			)
-			AS pol
+			AS poly
 		FROM roads;
 
 	CREATE TABLE areas_singlegeom AS
