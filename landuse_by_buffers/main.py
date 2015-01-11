@@ -71,7 +71,7 @@ python ogr2osm/ogr2osm.py temp/areas_singlegeom.shp
 	''')
 		
 	os.system('''
-	rm temp
+	rmdir temp
 	''')
 
 if __name__ == '__main__':
