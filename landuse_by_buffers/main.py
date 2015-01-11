@@ -67,7 +67,7 @@ def process():
 	''')
 
 	os.system('''
-python ogr2osm/ogr2osm.py data/areas_singlegeom.shp
+python ogr2osm/ogr2osm.py areas_singlegeom.shp
 	''')
 
 if __name__ == '__main__':
