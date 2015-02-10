@@ -1,0 +1,6 @@
+temp
+ogr2osm
+*.osm
+*.geojson
+*~
+config.py

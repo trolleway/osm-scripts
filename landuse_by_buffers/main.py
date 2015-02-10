@@ -1,19 +1,14 @@
 import os
 import psycopg2
+import config
 
 #Take an roads.geojson, and make a many polygons beetwen roads in osm format.
 #Open OSM file in JOSM, and you get a fancy medium-zoom landuse map
 
 
-def process():
-	dbname='gis'
-	user='user'
-	host='localhost'
-	password='user'
+def process(ConnectionString):
 	try:
-		conn = psycopg2.connect("dbname='" + dbname + "' user='"
-                                + user + "' host='" + host
-                                + "' password='" + password + "'")
+		conn = psycopg2.connect(ConnectionString)
 	except:
 		print 'I am unable to connect to the database'
 		return 0
@@ -30,7 +25,7 @@ def process():
 
 
 	os.system('''
-	ogr2ogr -overwrite -f "PostgreSQL" PG:"host=localhost user=user dbname=gis password=user"  -nln roads roads.geojson -s_srs EPSG:4326 -t_srs EPSG:3857
+	ogr2ogr -overwrite -f "PostgreSQL" PG:"'''+ConnectionString+'''"  -nln roads roads.geojson -s_srs EPSG:4326 -t_srs EPSG:3857
 	''')
 
 	sql='''
@@ -59,7 +54,7 @@ def process():
 	''')
 
 	os.system('''
-	ogr2ogr -overwrite temp PG:"dbname='gis' host='localhost' port='5432' user='user' password='user'"  "areas_singlegeom" -nlt MULTIPOLYGON -s_srs EPSG:3857 -t_srs EPSG:4326
+	ogr2ogr -overwrite temp PG:"'''+ConnectionString+'''"  "areas_singlegeom" -nlt MULTIPOLYGON -s_srs EPSG:3857 -t_srs EPSG:4326
 	''')
 
 	os.system('''
@@ -75,4 +70,6 @@ python ogr2osm/ogr2osm.py temp/areas_singlegeom.shp
 	''')
 
 if __name__ == '__main__':
-	process()
+	process("dbname='" + config.dbname + "' user='"
+                                + config.user + "' host='" + config.host
+                                + "' password='" + config.password + "'")
