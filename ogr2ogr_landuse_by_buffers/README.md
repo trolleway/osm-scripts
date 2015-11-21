@@ -1,0 +1,1 @@
+ogr2ogr -f GeoJSON -explodecollections c:\temp\lands.geojson c:\temp\roads.geojson -dialect sqlite -sql "SELECT ST_Difference(ST_ConvexHull(ST_Collect(geometry)),ST_Buffer(ST_Collect(geometry),0.0001)) as geometry FROM OGRGeoJSON"
