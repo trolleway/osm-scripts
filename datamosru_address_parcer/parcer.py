@@ -3,7 +3,7 @@
 
 #Парсер геоданных Адресного Реестра Москвы.
 #Скачайте json c http://data.mos.ru/opendata/7705031674-adresniy-reestr-zdaniy-i-soorujeniy-v-gorode-moskve
-#Положите его под именем input.json в папку со скриптом
+#Положите его под именем "Адресный реестр зданий и сооружений в городе Москве.json" в папку со скриптом
 #python parcer.py
 #Сгенерируется csv, который можно открыть в QGIS.
 
@@ -24,7 +24,7 @@ import csv
 
 values={}
 
-fs = open('Адресный_реестр.csv','w')
+fs = open('Адресный реестр зданий и сооружений в городе Москве.json','w')
 fs.write("Адрес,Номер дома,Номер корпуса,Номер строения,Признак владения,Признак сооружения,wkt_geom\n")
 fs.close()
 
@@ -34,7 +34,7 @@ for prefix, event, value in parser:
 
 
 
-    #print prefix, event, value
+    print prefix, event, value
     if  (prefix, event) == ('item', 'start_map'):
         values={}
         values['addrFull']=''
@@ -110,6 +110,7 @@ for prefix, event, value in parser:
         fs.write(export_string+'"'+geom.wkt+'"'+"\n")
         fs.close()
         print '=================================='
+        quit()
 
 
 
