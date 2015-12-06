@@ -8,24 +8,25 @@
 #Сгенерируется csv, который можно открыть в QGIS.
 
 
-import ijson,urllib
-import sys
-
-
+import ijson
 from shapely.geometry import Polygon, MultiPolygon
 
-import csv
 
 
 
-#temp=sys.stdout
-#sys.stdout=buff
 
+
+def RemoveDuplicatedNodes(coords):
+    newCoords=[]
+    for x,y in coords:
+        if ((x,y) in newCoords) == False:
+            newCoords.append((x,y))
+    return newCoords
 
 values={}
 
 fs = open('address_reestr_moscow.csv','w')
-fs.write("Адрес,Административный Район,Номер дома,Номер корпуса,Номер строения,Признак владения,Признак сооружения,wkt_geom\n")
+fs.write("Номер в датасете,GUID,Адрес,Административный Район,Номер дома,Номер корпуса,Номер строения,Признак владения,Признак сооружения,wkt_geom\n")
 fs.close()
 
 f = open('Адресный реестр зданий и сооружений в городе Москве.json','r')
@@ -34,10 +35,12 @@ for prefix, event, value in parser:
 
 
 
-    print prefix, event, value
+    #print prefix, event, value
     if  (prefix, event) == ('item', 'start_map'):
         values={}
         values['addrFull']=''
+        values['datasetNumber']=''
+        values['datasetGUID']=''
         values['admArea']=''
         values['nomerDoma']=''
         values['nomerKorpusa']=''
@@ -47,12 +50,15 @@ for prefix, event, value in parser:
     elif (prefix, event) == ('item.Cells.ADRES', 'string'):
         full_addr=value
         values['addrFull']=value.encode('utf-8')
-        #stream.write('<%s>' % value)
 
+    elif (prefix, event) == ('item.Number', 'number'):
+        values['datasetNumber']=str(value).encode('utf-8')
+    elif (prefix, event) == ('item.Id', 'string'):
+        values['datasetGUID']=value.encode('utf-8')
     elif (prefix, event) == ('item.Cells.DMT', 'string'):
         values['nomerDoma']=value.encode('utf-8')
     elif (prefix, event) == ('item.Cells.AdmArea.item', 'string'):
-        values['AdmArea']=value.encode('utf-8')
+        values['admArea']=value.encode('utf-8')
     elif (prefix, event) == ('item.Cells.KRT', 'string'):
         values['nomerKorpusa']=value.encode('utf-8')
     elif (prefix, event) == ('item.Cells.STRT', 'string'):
@@ -63,7 +69,7 @@ for prefix, event, value in parser:
         values['priznakSooruzenia']=value.encode('utf-8')
 
     elif (prefix, event) == ('item.Cells.geoData.type', 'string'):
-        #geomStarted=True
+
         geomType=value
         coords_array=[]
     elif (prefix, event) == ('item.Cells.geoData.coordinates.item.item.item','number'): #тип геометрии - polygon
@@ -76,28 +82,28 @@ for prefix, event, value in parser:
 
 
     elif (prefix, event) == ('item.Cells.geoData.coordinates.item', 'end_array'):
-        #geom_started=False   #Кончился их список координат
-        #print coords_array
-        #print len(coords_array)
         coordsForShapely=[]
         for i in xrange(0,len(coords_array),2):
             coordsForShapely.append((coords_array[i],coords_array[i+1]))
-        #print coords_array
         
+        coordsForShapely=RemoveDuplicatedNodes(coordsForShapely)
         #Поскольку сейчас в исходном файле дырок в мультиполигонах не найдено, то все геометрии делаются полигонами.
         '''if geomType == 'Polygon':
             geom = Polygon(coordsForShapely)
         if geomType == 'MultiPolygon':
             geom = MultiPolygon(coordsForShapely)
         '''
+
         geom = Polygon(coordsForShapely)
 
-        #print geom.wkt
+
 
         #модуль csv не работает с файлами открытыми на дозапись, поэтому генерирую строку csv вручную
         #export_values=(values['Полный адрес'].encode('utf-8'),values['Номер дома'].encode('utf-8'))
         export_string=''
         #for name, valueq in values:
+        export_string += '"'+values['datasetNumber']+'",'
+        export_string += '"'+values['datasetGUID']+'",'
         export_string += '"'+values['addrFull']+'",'
         export_string += '"'+values['admArea']+'",'
         export_string += '"'+values['nomerDoma']+'",'
@@ -113,7 +119,6 @@ for prefix, event, value in parser:
         fs.write(export_string+'"'+geom.wkt+'"'+"\n")
         fs.close()
         print '=================================='
-
 
 
 
