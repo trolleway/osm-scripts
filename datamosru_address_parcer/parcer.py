@@ -110,7 +110,7 @@ for prefix, event, value in parser:
         fs.write(export_string+'"'+geom.wkt+'"'+"\n")
         fs.close()
         print '=================================='
-        quit()
+
 
 
 
