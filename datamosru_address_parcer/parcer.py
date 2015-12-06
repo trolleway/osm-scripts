@@ -1,5 +1,5 @@
- #!/usr/bin/python
- # -*- coding: utf-8 -*-
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 #Парсер геоданных Адресного Реестра Москвы.
 #Скачайте json c http://data.mos.ru/opendata/7705031674-adresniy-reestr-zdaniy-i-soorujeniy-v-gorode-moskve
@@ -25,7 +25,7 @@ import csv
 values={}
 
 fs = open('address_reestr_moscow.csv','w')
-fs.write("Адрес,Номер дома,Номер корпуса,Номер строения,Признак владения,Признак сооружения,wkt_geom\n")
+fs.write("Адрес,Административный Район,Номер дома,Номер корпуса,Номер строения,Признак владения,Признак сооружения,wkt_geom\n")
 fs.close()
 
 f = open('Адресный реестр зданий и сооружений в городе Москве.json','r')
@@ -38,6 +38,7 @@ for prefix, event, value in parser:
     if  (prefix, event) == ('item', 'start_map'):
         values={}
         values['addrFull']=''
+        values['admArea']=''
         values['nomerDoma']=''
         values['nomerKorpusa']=''
         values['nomerStroenia']=''
@@ -48,9 +49,10 @@ for prefix, event, value in parser:
         values['addrFull']=value.encode('utf-8')
         #stream.write('<%s>' % value)
 
-
     elif (prefix, event) == ('item.Cells.DMT', 'string'):
         values['nomerDoma']=value.encode('utf-8')
+    elif (prefix, event) == ('item.Cells.AdmArea.item', 'string'):
+        values['AdmArea']=value.encode('utf-8')
     elif (prefix, event) == ('item.Cells.KRT', 'string'):
         values['nomerKorpusa']=value.encode('utf-8')
     elif (prefix, event) == ('item.Cells.STRT', 'string'):
@@ -97,6 +99,7 @@ for prefix, event, value in parser:
         export_string=''
         #for name, valueq in values:
         export_string += '"'+values['addrFull']+'",'
+        export_string += '"'+values['admArea']+'",'
         export_string += '"'+values['nomerDoma']+'",'
         export_string += '"'+values['nomerKorpusa']+'",'
         export_string += '"'+values['nomerStroenia']+'",'
@@ -106,10 +109,11 @@ for prefix, event, value in parser:
 
         print export_string
 
-        fs = open('Адресный_реестр.csv','a')
+        fs = open('address_reestr_moscow.csv','a')
         fs.write(export_string+'"'+geom.wkt+'"'+"\n")
         fs.close()
         print '=================================='
+
 
 
 
