@@ -24,11 +24,11 @@ import csv
 
 values={}
 
-fs = open('Адресный реестр зданий и сооружений в городе Москве.json','w')
+fs = open('address_reestr_moscow.csv','w')
 fs.write("Адрес,Номер дома,Номер корпуса,Номер строения,Признак владения,Признак сооружения,wkt_geom\n")
 fs.close()
 
-f = open('input.json','r')
+f = open('Адресный реестр зданий и сооружений в городе Москве.json','r')
 parser = ijson.parse(f)
 for prefix, event, value in parser:
 
