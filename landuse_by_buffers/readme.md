@@ -33,8 +33,7 @@ CREATE EXTENSION postgis;
 1. Загрузите в JOSM какой-нибудь райцентр, где вы хотите нарисовать landuse=residential
 2. Выберите фильтром линии (улицы + границы города + природа(?)), вокруг которых будут строится буфера. Создайте два фильтра: 
 ```
-trunk|motorway|primary|secondary|tertiary|unclassified|highway=residential|track|railway|natural|living_street|waterway|place
-```
+trunk|motorway|primary|highway=secondary|tertiary|unclassified|highway=residential|track|railway|natural|waterway|place=*```
 ```
 type:node
 ```
