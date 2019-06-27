@@ -5,7 +5,7 @@ docker build  https://raw.githubusercontent.com/trolleway/osm-scripts/master/osm
 
 #work using bind 
 mkdir osmupdate_data
-docker volume create osmupdate_data
+
 docker run -it  \
   --rm \
   --name osmupdate \
