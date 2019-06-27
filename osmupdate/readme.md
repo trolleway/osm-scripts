@@ -9,7 +9,7 @@ docker volume create osmupdate_data
 docker run -it  \
   --rm \
   --name osmupdate \
-  --mount type=bind,source=$(pwd)/osmupdate_data,target=/data \
+  --mount type=bind,source="$(pwd)"/osmupdate_data,target=/data \
   osmupdate
   
   
