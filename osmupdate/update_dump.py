@@ -11,7 +11,7 @@ import os
 def updateDump():
     
     dump_url='http://download.geofabrik.de/russia/central-fed-district-latest.osm.pbf'
-    directory='~/data'
+    directory='/data'
     
     downloaded_dump='central-fed-district-latest.osm.pbf'
     work_dump=os.path.join(directory,'work_dump.osm.pbf')
