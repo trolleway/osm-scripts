@@ -4,7 +4,8 @@ RUN apt-get update
 RUN apt-get install -y git \
 osmctools \
 curl \
-python 
+python
+
 
 RUN git clone https://github.com/trolleway/osm-scripts.git
 WORKDIR osm-scripts/osmupdate
