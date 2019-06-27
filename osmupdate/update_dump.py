@@ -11,7 +11,7 @@ import os
 def updateDump():
     
     dump_url='http://download.geofabrik.de/russia/central-fed-district-latest.osm.pbf'
-    directory='~/files'
+    directory='~/data'
     
     downloaded_dump='central-fed-district-latest.osm.pbf'
     work_dump=os.path.join(directory,'work_dump.osm.pbf')
@@ -24,7 +24,7 @@ def updateDump():
 
     #frist run of program
     if os.path.exists(work_dump) == False:
-        os.system('curl -O '+work_dump + ' ' + dump_url)
+        os.system('curl --o '+work_dump + ' ' + dump_url)
 
 
     #if prevdump dump exists - run osmupdate, it updating it to last hour state with MosOblast clipping, and save as currentdump
