@@ -14,7 +14,7 @@ def updateDump():
     downloaded_dump='central-fed-district-latest.osm.pbf'
     work_dump='moscow_russia.osm.pbf'
     updated_dump='osm/just_updated_dump.osm.pbf'
-    poly_file='cfg/mostrans.poly'
+    poly_file='area.poly'
     directory='osm'
     
     if not os.path.exists(directory):
@@ -30,7 +30,7 @@ def updateDump():
     print cmd
     os.system(cmd)
     
-    #if osmupdate not find updates in internet - new file not created, will be used downloaded file
+    #if osmupdate not find updates in internet - new file not created so we use downloaded file
     if os.path.exists(work_dump) == True: 
         #rename currentdump to prevdump
         os.remove(work_dump)
