@@ -15,7 +15,7 @@ def updateDump():
     work_dump='moscow_russia.osm.pbf'
     updated_dump='osm/just_updated_dump.osm.pbf'
     poly_file='area.poly'
-    directory='files'
+    directory='~/files'
     
     if not os.path.exists(directory):
         os.makedirs(directory)
