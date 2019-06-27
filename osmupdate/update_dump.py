@@ -10,7 +10,7 @@ import os
 #if prevdump not exists - download CFO from geofabrik and crop to MosOblast
 def updateDump():
     
-    dump_url='http://download.geofabrik.de/russia/central-fed-district-latest.osm.pbf'
+    dump_url='https://download.openstreetmap.fr/extracts/russia/north_caucasian_federal_district-latest.osm.pbf'
     directory='/data'
     
     downloaded_dump='central-fed-district-latest.osm.pbf'
