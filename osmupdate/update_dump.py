@@ -11,19 +11,21 @@ import os
 def updateDump():
     
     dump_url='http://download.geofabrik.de/russia/central-fed-district-latest.osm.pbf'
-    downloaded_dump='central-fed-district-latest.osm.pbf'
-    work_dump='moscow_russia.osm.pbf'
-    updated_dump='osm/just_updated_dump.osm.pbf'
-    poly_file='area.poly'
     directory='~/files'
+    
+    downloaded_dump='central-fed-district-latest.osm.pbf'
+    work_dump=os.path.join(directory,'work_dump.osm.pbf')
+    updated_dump=os.path.join(directory,'updated_dump.osm.pbf')
+    poly_file='area.poly'
+    
     
     if not os.path.exists(directory):
         os.makedirs(directory)
 
     #frist run of program
     if os.path.exists(work_dump) == False:
-        os.system('wget '+dump_url)
-        os.rename(downloaded_dump, work_dump) 
+        os.system('curl -O '+work_dump + ' ' + dump_url)
+
 
     #if prevdump dump exists - run osmupdate, it updating it to last hour state with MosOblast clipping, and save as currentdump
     cmd='osmupdate '+ work_dump + ' ' + updated_dump + '   -v -B='+poly_file #--day --hour 
