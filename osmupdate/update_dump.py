@@ -24,7 +24,9 @@ def updateDump():
 
     #frist run of program
     if os.path.exists(work_dump) == False:
-        os.system('curl --o '+work_dump + ' ' + dump_url)
+        cmd = 'curl -o {work_dump} {dump_url}'.format(work_dump = work_dump, dump_url=dump_url)
+        print cmd
+        os.system(cmd)
 
 
     #if prevdump dump exists - run osmupdate, it updating it to last hour state with MosOblast clipping, and save as currentdump
