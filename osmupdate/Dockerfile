@@ -10,4 +10,4 @@ python
 RUN git clone https://github.com/trolleway/osm-scripts.git
 WORKDIR osm-scripts/osmupdate
 
-RUN PYTHON argstest.py --path "http://example.com"
+RUN python argstest.py --path "http://example.com"
