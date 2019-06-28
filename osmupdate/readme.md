@@ -2,7 +2,7 @@
 run
 ```
 sudo docker build  https://raw.githubusercontent.com/trolleway/osm-scripts/master/osmupdate/Dockerfile --no-cache --tag osmupdate
-sudo docker build  https://github.com/trolleway/osm-scripts.git:osmupdate --no-cache --tag osmupdate
+sudo docker build  https://github.com/trolleway/osm-scripts.git\#:osmupdate --no-cache --tag osmupdate
 #build from dockerfile in none-root folder of git repository
 
 
