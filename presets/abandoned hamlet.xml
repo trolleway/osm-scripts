@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0">
+  <item name="Abandoned hamlet" type="node">
+    <label text="Abandoned hamlet" />
+
+    <text key="note" text="" />
+
+
+    <!-- Always setting-->
+    <key key="abandoned:place" value="hamlet" />
+    <key key="place" value="locality" />
+  </item>
+</presets>
