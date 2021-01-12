@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0">
-  <item name="Abandoned hamlet" type="node,closedway">
+  <item name="Abandoned hamlet" type="node,closedway,way">
     <label text="Abandoned hamlet" />
-
     <text key="note" text="note" />
-
-
     <!-- Always setting-->
     <key key="abandoned:place" value="hamlet" />
     <key key="place" value="locality" />
+  </item>
+  
+  <item name="Brownfield" type="closedway,way">
+    <label text="Brownfield" />
+
+    <key key="landuse" value="brownfield" />
   </item>
 </presets>
