@@ -10,7 +10,11 @@
   
   <item name="Brownfield" type="closedway,way">
     <label text="Brownfield" />
-
     <key key="landuse" value="brownfield" />
+  </item>
+  <item name="unpaved road" type="way">
+    <label text="Грунтовка к деревне" />
+    <key key="highway" value="unclassified" />
+    <key key="surface" value="unpaved" />
   </item>
 </presets>
