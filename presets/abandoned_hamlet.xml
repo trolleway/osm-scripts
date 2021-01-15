@@ -17,4 +17,10 @@
     <key key="highway" value="unclassified" />
     <key key="surface" value="unpaved" />
   </item>
+  <item name="village landuse" type="closedway,way">
+    <label text="Деревенский квартал" />
+    <key key="landuse" value="residential" />
+    <key key="residential" value="rural" />
+  </item>  
+  
 </presets>
