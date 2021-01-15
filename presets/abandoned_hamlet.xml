@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <presets xmlns="http://josm.openstreetmap.de/tagging-preset-1.0">
+  
   <item name="Abandoned hamlet" type="node,closedway,way">
     <label text="Abandoned hamlet" />
     <text key="note" text="note" />
-    <!-- Always setting-->
     <key key="abandoned:place" value="hamlet" />
     <key key="place" value="locality" />
   </item>
@@ -12,11 +12,13 @@
     <label text="Brownfield" />
     <key key="landuse" value="brownfield" />
   </item>
+  
   <item name="unpaved road" type="way">
     <label text="Грунтовка к деревне" />
     <key key="highway" value="unclassified" />
     <key key="surface" value="unpaved" />
   </item>
+  
   <item name="village landuse" type="closedway,way">
     <label text="Деревенский квартал" />
     <key key="landuse" value="residential" />
