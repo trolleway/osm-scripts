@@ -6,6 +6,7 @@
     <text key="note" text="note" />
     <key key="abandoned:place" value="hamlet" />
     <key key="place" value="locality" />
+    <key key="oktmo:user" value="yes" />
   </item>
   
   <item name="Brownfield" type="closedway,way">
